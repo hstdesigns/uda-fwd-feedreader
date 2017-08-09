@@ -50,6 +50,9 @@ open index.html
 ## Changelog
 
 ### 1.1.1 (July 9, 2017)
+- fixed some issues in feedreader.js ("Initial Entries", function ())
+
+### 1.1.1 (July 9, 2017)
 - fixed some issues (callback tests)
 
 ### 1.1.0 (July 8, 2017)

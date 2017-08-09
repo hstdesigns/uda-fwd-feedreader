@@ -72,53 +72,42 @@ $(function () {
          * function is called and completes its work, there is at least
          * a single .entry element within the .feed container.
          */
-        
+
         // this is a temp var to compare the content of feed #0 with feed #1
         var feedContent0 = '';
 
         // reset .feed content and reload feed 0
-        beforeAll(function () {
+        beforeEach(function (done) {
             //console.group('testing beforeEach');
-            //console.log('begin...');
-            
-            $('.feed').empty();
-            
-            //console.log('done...');
-            //console.groupEnd();
-        });
+            //console.log('begin callbacks...');
 
-        // check the .feed class for content
-        it('there is at least a single .entry element', function (done) {
-            //console.group('testing callback A');
+            // reset .feed content
+            $('.feed').empty();
             
             // load feed #0
             loadFeed(0, function () {
                 //console.log('done A');
-                
+
                 // check if # of entries > 0
                 expect($('.feed .entry').length).not.toBe(0);
                 // save the html content -> will be needed for the next test
                 feedContent0 = $('.feed .entry').html();
-                done();
+                
+                // load feed #1
+                loadFeed(1, function () {
+                    //console.log('done B');
+                    done();
+                });
             });
-            
-            //console.log('end A');
+
+            //console.log('end callbacks...');
             //console.groupEnd();
         });
 
         // check whether the .feed class content changed
-        it('the content actually changes', function (done) {
-            //console.group('testing callback B');
-            
-            // load feed #1
-            loadFeed(1, function () {
-                //console.log('done B');
-                expect($('.feed .entry').html()).not.toBe(feedContent0);
-                done();
-            });
-            
-            //console.log('end B');
-            //console.groupEnd();
+        it('the content actually changes', function () {
+            //console.log('done C');
+            expect($('.feed .entry').html()).not.toBe(feedContent0);
         });
     });
 
